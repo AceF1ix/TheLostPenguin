@@ -87,7 +87,11 @@ public class PenguinController : MonoBehaviour
     {
         if(other.gameObject.tag == "water")
         {
-            SceneManager.LoadScene("GameOver");  
+            ctrl.enabled = false;
+            transform.position = initialPosition;
+            ctrl.enabled = true;
+            transform.rotation = Quaternion.identity;
+            velocity = Vector3.down * 0.1f; 
         }
 
         if(other.gameObject.tag == "gems")
