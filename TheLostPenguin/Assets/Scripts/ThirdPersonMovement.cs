@@ -7,8 +7,9 @@ public class ThirdPersonMovement : MonoBehaviour
     private CharacterController controller;
     public Transform cam;
     public float speed = 15f;
-    public float gravity = 9.81f;
-    private float jumpForce = 3f;
+    public float gravity = 40f;
+    private float jumpForce = 13f;
+    public float ADDITIONAL_FALL_GRAVITY = 0.35f;
     public float turnSmoothTime = 0.1f;
     private Animator anim;
     Vector3 velocity;
@@ -17,12 +18,16 @@ public class ThirdPersonMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     bool isGrounded;
+    private Vector3 initialPosition;
+    public WaterRising waterRising;
 
     // Update is called once per frame
     void Start()
     {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        waterRising = GameObject.Find("Plane").GetComponent<WaterRising>();
+        initialPosition = transform.position;
     }
     
     void Update()
@@ -31,11 +36,6 @@ public class ThirdPersonMovement : MonoBehaviour
         
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
-        if(isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
@@ -52,14 +52,19 @@ public class ThirdPersonMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
             anim.SetBool("InAir", true);
-            velocity.y = Mathf.Sqrt(jumpForce * -2f * -gravity);
+            velocity.y = jumpForce;
         }
         else
         {
             anim.SetBool("InAir", false);
+
+            if (velocity.y < 4 && isGrounded!=true){
+                velocity.y -= ADDITIONAL_FALL_GRAVITY;
+                }
         }
         
         velocity.y -= gravity * Time.deltaTime;
+        velocity.y = Mathf.Clamp(velocity.y, -40f, 100f);
         controller.Move(velocity * Time.deltaTime);
 
         if (direction.magnitude >= 0.5 && isGrounded)
@@ -69,6 +74,25 @@ public class ThirdPersonMovement : MonoBehaviour
         else
         {
             anim.SetBool("Running", false);
+        }
+
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "water")
+        {
+            controller.enabled = false;
+            transform.position = initialPosition;
+            controller.enabled = true;
+            transform.rotation = Quaternion.identity;
+            velocity = Vector3.down * 0.1f;
+
+            // Reset water level
+
+            waterRising.restart_pos();
+
         }
     }
 }
