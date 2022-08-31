@@ -6,7 +6,7 @@ public class WaterRising : MonoBehaviour
 {
     private float timer = 0f;
     private float lvl_duration = 10f;
-    private float max_water_lvl = 100f;
+    private float max_water_lvl = 60f;
     private Vector3 water_start_pos = new Vector3(0, 0, 0);
     public bool is_max_duration = false;
     public bool reset_pos = false;
