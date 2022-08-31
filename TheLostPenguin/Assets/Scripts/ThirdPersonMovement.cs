@@ -6,10 +6,10 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     private CharacterController controller;
     public Transform cam;
-    public float speed = 15f;
-    public float gravity = 30f;
-    private float jumpForce = 13f;
-    public float ADDITIONAL_FALL_GRAVITY = 0.35f;
+    private float speed = 20f;
+    private float gravity = 17f;
+    private float jumpForce = 20f;
+    private float ADDITIONAL_FALL_GRAVITY = 0.35f;
     public float turnSmoothTime = 0.1f;
     private Animator anim;
     Vector3 velocity;
@@ -28,8 +28,6 @@ public class ThirdPersonMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         waterRising = GameObject.Find("Plane").GetComponent<WaterRising>();
         initialPosition = transform.position;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
     
     void Update()
@@ -60,7 +58,7 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             anim.SetBool("InAir", false);
 
-            if (velocity.y < 4 && isGrounded!=true){
+            if (velocity.y < 6 && isGrounded!=true){
                 velocity.y -= ADDITIONAL_FALL_GRAVITY;
                 }
         }
