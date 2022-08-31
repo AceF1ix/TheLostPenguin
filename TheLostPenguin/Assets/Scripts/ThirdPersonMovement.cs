@@ -28,6 +28,8 @@ public class ThirdPersonMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         waterRising = GameObject.Find("Plane").GetComponent<WaterRising>();
         initialPosition = transform.position;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     void Update()
