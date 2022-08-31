@@ -6,10 +6,10 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     private CharacterController controller;
     public Transform cam;
-    private float speed = 20f;
-    private float gravity = 20f;
-    private float jumpForce = 18f;
-    private float ADDITIONAL_FALL_GRAVITY = 0.36f;
+    public float speed = 15f;
+    public float gravity = 40f;
+    private float jumpForce = 13f;
+    public float ADDITIONAL_FALL_GRAVITY = 0.35f;
     public float turnSmoothTime = 0.1f;
     private Animator anim;
     Vector3 velocity;
@@ -28,8 +28,6 @@ public class ThirdPersonMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         waterRising = GameObject.Find("Plane").GetComponent<WaterRising>();
         initialPosition = transform.position;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
     
     void Update()
@@ -50,7 +48,7 @@ public class ThirdPersonMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
-    
+
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
             anim.SetBool("InAir", true);
@@ -60,7 +58,7 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             anim.SetBool("InAir", false);
 
-            if (velocity.y < 6 && isGrounded!=true){
+            if (velocity.y < 4 && isGrounded!=true){
                 velocity.y -= ADDITIONAL_FALL_GRAVITY;
                 }
         }
@@ -77,14 +75,14 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             anim.SetBool("Running", false);
         }
+
+
     }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "water")
         {
-            // Reset player position on contact with water
-
             controller.enabled = false;
             transform.position = initialPosition;
             controller.enabled = true;
