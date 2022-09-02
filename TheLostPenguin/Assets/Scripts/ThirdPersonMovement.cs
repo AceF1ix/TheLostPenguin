@@ -6,10 +6,10 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     private CharacterController controller;
     public Transform cam;
-    public float speed = 15f;
-    public float gravity = 30f;
-    private float jumpForce = 13f;
-    public float ADDITIONAL_FALL_GRAVITY = 0.35f;
+    public float speed = 24f;
+    private float gravity = 17f;
+    public float jumpForce = 15f;
+    private float ADDITIONAL_FALL_GRAVITY = 0.35f;
     public float turnSmoothTime = 0.1f;
     private Animator anim;
     Vector3 velocity;
@@ -20,6 +20,7 @@ public class ThirdPersonMovement : MonoBehaviour
     bool isGrounded;
     private Vector3 initialPosition;
     public WaterRising waterRising;
+    public PowerUps powerUps;
 
     // Update is called once per frame
     void Start()
@@ -60,13 +61,13 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             anim.SetBool("InAir", false);
 
-            if (velocity.y < 4 && isGrounded!=true){
+            if (velocity.y < 6 && isGrounded!=true){
                 velocity.y -= ADDITIONAL_FALL_GRAVITY;
                 }
         }
         
         velocity.y -= gravity * Time.deltaTime;
-        velocity.y = Mathf.Clamp(velocity.y, -40f, 100f);
+        velocity.y = Mathf.Clamp(velocity.y, -60f, 100f);
         controller.Move(velocity * Time.deltaTime);
 
         if (direction.magnitude >= 0.5 && isGrounded)
@@ -77,8 +78,6 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             anim.SetBool("Running", false);
         }
-
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -96,5 +95,18 @@ public class ThirdPersonMovement : MonoBehaviour
             waterRising.restart_pos();
 
         }
+
+        if(other.gameObject.tag == "JumpBoostGem")
+        {
+            Destroy(other.gameObject);
+            StartCoroutine(GameObject.Find("Penguin").GetComponent<PowerUps>().Player_Jump_Boost());
+        }
+
+        if(other.gameObject.tag == "SprintBoostGem")
+        {
+            Destroy(other.gameObject);
+            StartCoroutine(GameObject.Find("Penguin").GetComponent<PowerUps>().Player_Sprint_Boost());
+        }
+
     }
 }
