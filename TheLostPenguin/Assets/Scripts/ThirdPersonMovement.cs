@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class ThirdPersonMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         waterRising = GameObject.Find("Plane").GetComponent<WaterRising>();
         initialPosition = transform.position;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     void Update()
@@ -82,16 +85,9 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if(other.gameObject.tag == "water")
         {
-            controller.enabled = false;
-            transform.position = initialPosition;
-            controller.enabled = true;
-            transform.rotation = Quaternion.identity;
-            velocity = Vector3.down * 0.1f;
-
-            // Reset water level
-
-            waterRising.restart_pos();
-
+            SceneManager.LoadScene("Game Over");
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         if(other.gameObject.tag == "JumpBoostGem")

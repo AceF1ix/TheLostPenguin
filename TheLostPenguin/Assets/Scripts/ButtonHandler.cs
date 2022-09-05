@@ -28,4 +28,9 @@ public class ButtonHandler : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnClickRestart()
+    {
+        SceneManager.LoadScene("Main");
+    }
 }
