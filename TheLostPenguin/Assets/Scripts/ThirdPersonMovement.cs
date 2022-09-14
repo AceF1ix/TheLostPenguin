@@ -9,8 +9,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public Transform cam;
     public float speed = 24f;
     private float gravity = 17f;
-    public float jumpForce = 15f;
-    private float ADDITIONAL_FALL_GRAVITY = 0.35f;
+    public float jumpForce = 16f;
+    private float ADDITIONAL_FALL_GRAVITY = 20f;
     public float turnSmoothTime = 0.1f;
     private Animator anim;
     Vector3 velocity;
@@ -63,8 +63,9 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             anim.SetBool("InAir", false);
 
-            if (velocity.y < 6 && isGrounded!=true){
-                velocity.y -= ADDITIONAL_FALL_GRAVITY;
+            if (velocity.y < 4 && isGrounded!=true){
+                print(velocity.y);
+                velocity.y -= ADDITIONAL_FALL_GRAVITY * Time.deltaTime;
                 }
         }
         
