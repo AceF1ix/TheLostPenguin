@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 1009015795}
   - component: {fileID: 1009015794}
   - component: {fileID: 1009015797}
+  - component: {fileID: 1009015798}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -1036,8 +1037,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 36f577aa51589de40a7f351d231daa6d, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1067,6 +1068,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   escaper: {fileID: 0}
+--- !u!114 &1009015798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009015792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.13725491, g: 0.1254902, b: 0.40392157, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1125327078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,6 +1383,7 @@ GameObject:
   - component: {fileID: 1764814007}
   - component: {fileID: 1764814006}
   - component: {fileID: 1764814005}
+  - component: {fileID: 1764814009}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -1484,8 +1501,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 36f577aa51589de40a7f351d231daa6d, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1502,6 +1519,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764814003}
   m_CullTransparentMesh: 1
+--- !u!114 &1764814009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764814003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.13725491, g: 0.1254902, b: 0.40392157, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2091030506
 GameObject:
   m_ObjectHideFlags: 0

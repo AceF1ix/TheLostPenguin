@@ -8,6 +8,7 @@ TagManager:
   - JumpBoostGem
   - SprintBoostGem
   - Decorations
+  - winPosition
   layers:
   - Default
   - TransparentFX

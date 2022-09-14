@@ -32,6 +32,7 @@ public class ThirdPersonMovement : MonoBehaviour
         initialPosition = transform.position;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        StartCoroutine(GameObject.Find("Penguin").GetComponent<PowerUps>().Timer_Counter());
     }
     
     void Update()
@@ -101,6 +102,5 @@ public class ThirdPersonMovement : MonoBehaviour
             Destroy(other.gameObject);
             StartCoroutine(GameObject.Find("Penguin").GetComponent<PowerUps>().Player_Sprint_Boost());
         }
-
     }
 }

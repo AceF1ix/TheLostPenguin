@@ -8,6 +8,7 @@ public class Escaper : MonoBehaviour
 {
     public GameObject optionsMenu;
     public bool gameIsPaused;
+    public PowerUps powerUps;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class Escaper : MonoBehaviour
         
         if(scene.name == "Main")
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(Input.GetKeyDown(KeyCode.Escape) && powerUps.winState == false)
             {
                 gameIsPaused = !gameIsPaused;
                 PauseGame();
