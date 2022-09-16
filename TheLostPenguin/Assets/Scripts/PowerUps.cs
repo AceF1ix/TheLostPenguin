@@ -15,6 +15,8 @@ public class PowerUps : MonoBehaviour
     private float Jump_Boost_Multiplier = 1.5f;
     private float Sprint_Boost_Multiplier = 1.3f;
     public bool winState = false;
+    public bool jumpBoostActive = false;
+    public bool speedBoostActive = false;
     public ThirdPersonMovement thirdPersonMovement;
     public TextMeshProUGUI jumpText;
     public TextMeshProUGUI speedText;
@@ -29,45 +31,45 @@ public class PowerUps : MonoBehaviour
     public Texture speedYesActive;
     public GameObject winCanvas;
 
-    public IEnumerator Player_Jump_Boost()
+    void Update()
     {
-        // Do something while the timer is on
-
-        thirdPersonMovement.jumpForce *= Jump_Boost_Multiplier;
-        jumpText.enabled = true;
-        jumpImg.texture = jumpYesActive;
-
-        do {
-            jumpTimer += Time.deltaTime;
-            jumpText.text = (Jump_Boost_Duration - Mathf.Abs(jumpTimer)).ToString("F0");
-            yield return null;
+        Debug.Log(thirdPersonMovement.jumpForce);
+        if (jumpBoostActive == true)
+        {
+            if (jumpTimer < Jump_Boost_Duration)
+            {
+                jumpTimer += Time.deltaTime;
+                jumpText.text = (10 - Mathf.Abs(jumpTimer)).ToString("F0");
+            } 
+            else
+            {
+                jumpBoostActive = false;
+                jumpTimer = 0f;
+                jumpText.enabled = false;
+                jumpImg.texture = jumpNoActive;
+                Debug.Log(thirdPersonMovement.jumpForce);
+                thirdPersonMovement.jumpForce = 16f;
+                Debug.Log(thirdPersonMovement.jumpForce);
+            }
         }
 
-
-        while (jumpTimer < Jump_Boost_Duration);
-        jumpText.enabled = false;
-        jumpImg.texture = jumpNoActive;
-        thirdPersonMovement.jumpForce = 15f;
-    }
-
-    public IEnumerator Player_Sprint_Boost()
-    {
-        thirdPersonMovement.speed *= Sprint_Boost_Multiplier;
-        speedText.enabled = true;
-        speedImg.texture = speedYesActive;
-
-        do {
-            speedTimer += Time.deltaTime;
-            speedText.text = (10 - Mathf.Abs(speedTimer)).ToString("F0");
-            yield return null;
+        if (speedBoostActive == true)
+        {
+            if (speedTimer < Sprint_Boost_Duration)
+            {
+                speedTimer += Time.deltaTime;
+                speedText.text = (10 - Mathf.Abs(speedTimer)).ToString("F0");
+            }
+            else
+            {
+                speedBoostActive = false;
+                speedTimer = 0;
+                speedText.enabled = false;
+                speedImg.texture = speedNoActive;
+                thirdPersonMovement.speed = 30f;
+            }
         }
-
-        while (speedTimer < Sprint_Boost_Duration);
-        speedText.enabled = false;
-        speedImg.texture = speedNoActive;
-        thirdPersonMovement.speed = 30f;
     }
-
     public IEnumerator Timer_Counter()
     {
         timerText.enabled = true;
@@ -97,6 +99,24 @@ public class PowerUps : MonoBehaviour
         if(other.gameObject.tag == "winPosition")
         {
             winState = true;
+        }
+
+        if(other.gameObject.tag == "JumpBoostGem")
+        {
+            Destroy(other.gameObject);
+            jumpBoostActive = true;
+            thirdPersonMovement.jumpForce *= Jump_Boost_Multiplier;
+            jumpText.enabled = true;
+            jumpImg.texture = jumpYesActive;
+        }
+
+        if(other.gameObject.tag == "SprintBoostGem")
+        {
+            Destroy(other.gameObject);
+            speedBoostActive = true;
+            thirdPersonMovement.speed *= Sprint_Boost_Multiplier;
+            speedText.enabled = true;
+            speedImg.texture = speedYesActive;
         }
     }
 }

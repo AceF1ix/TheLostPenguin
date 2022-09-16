@@ -21,7 +21,7 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnClickMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Path7");
     }
 
     public void OnClickQuit()

@@ -64,7 +64,6 @@ public class ThirdPersonMovement : MonoBehaviour
             anim.SetBool("InAir", false);
 
             if (velocity.y < 4 && isGrounded!=true){
-                print(velocity.y);
                 velocity.y -= ADDITIONAL_FALL_GRAVITY * Time.deltaTime;
                 }
         }
@@ -90,18 +89,6 @@ public class ThirdPersonMovement : MonoBehaviour
             SceneManager.LoadScene("Game Over");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-        }
-
-        if(other.gameObject.tag == "JumpBoostGem")
-        {
-            Destroy(other.gameObject);
-            StartCoroutine(GameObject.Find("Penguin").GetComponent<PowerUps>().Player_Jump_Boost());
-        }
-
-        if(other.gameObject.tag == "SprintBoostGem")
-        {
-            Destroy(other.gameObject);
-            StartCoroutine(GameObject.Find("Penguin").GetComponent<PowerUps>().Player_Sprint_Boost());
         }
     }
 }
