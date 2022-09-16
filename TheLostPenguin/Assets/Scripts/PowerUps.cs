@@ -33,7 +33,6 @@ public class PowerUps : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(thirdPersonMovement.jumpForce);
         if (jumpBoostActive == true)
         {
             if (jumpTimer < Jump_Boost_Duration)
@@ -47,9 +46,7 @@ public class PowerUps : MonoBehaviour
                 jumpTimer = 0f;
                 jumpText.enabled = false;
                 jumpImg.texture = jumpNoActive;
-                Debug.Log(thirdPersonMovement.jumpForce);
                 thirdPersonMovement.jumpForce = 16f;
-                Debug.Log(thirdPersonMovement.jumpForce);
             }
         }
 
